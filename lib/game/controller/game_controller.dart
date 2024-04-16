@@ -40,6 +40,9 @@ abstract class _GameControllerBase with Store {
   bool isGameOver = false;
 
   @observable
+  bool isWin = false;
+
+  @observable
   String content = '';
 
   @observable
@@ -67,8 +70,8 @@ abstract class _GameControllerBase with Store {
   }
 
   @action
-  bool checkWin() {
-    return hiddenWord == hangWord;
+  void checkWin() {
+    isWin = hangWord.toUpperCase() == hiddenWord.toUpperCase();
   }
 
   @action
@@ -92,8 +95,9 @@ abstract class _GameControllerBase with Store {
   void decrementLives() {
     if (lives == 0) {
       endGame();
+    } else {
+      lives--;
     }
-    lives--;
   }
 
   @action
@@ -101,6 +105,9 @@ abstract class _GameControllerBase with Store {
     lives = 5;
     score = 0;
     isGameOver = false;
+    rightGuess.clear();
+    usedLetters.clear();
+    getWord();
   }
 
   @action

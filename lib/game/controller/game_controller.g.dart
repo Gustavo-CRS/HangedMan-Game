@@ -153,6 +153,22 @@ mixin _$GameController on _GameControllerBase, Store {
     });
   }
 
+  late final _$isWinAtom =
+      Atom(name: '_GameControllerBase.isWin', context: context);
+
+  @override
+  bool get isWin {
+    _$isWinAtom.reportRead();
+    return super.isWin;
+  }
+
+  @override
+  set isWin(bool value) {
+    _$isWinAtom.reportWrite(value, super.isWin, () {
+      super.isWin = value;
+    });
+  }
+
   late final _$contentAtom =
       Atom(name: '_GameControllerBase.content', context: context);
 
@@ -245,7 +261,7 @@ mixin _$GameController on _GameControllerBase, Store {
       ActionController(name: '_GameControllerBase', context: context);
 
   @override
-  bool checkWin() {
+  void checkWin() {
     final _$actionInfo = _$_GameControllerBaseActionController.startAction(
         name: '_GameControllerBase.checkWin');
     try {
@@ -344,6 +360,7 @@ wordsToGuess: ${wordsToGuess},
 hangWord: ${hangWord},
 hiddenWord: ${hiddenWord},
 isGameOver: ${isGameOver},
+isWin: ${isWin},
 content: ${content},
 linhas: ${linhas},
 rightGuess: ${rightGuess},
